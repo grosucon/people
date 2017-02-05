@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+
+  <style>
+    body {
+
+    }
+
+    h1 {
+      background-color: #00ff00;
+    }
+
+    div {
+      background-color: rgb(255,0,255);
+      width: 300px;
+      height: 50px;
+    }
+  </style>
+
+<div>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to 'Add main post', new_post_path(user_id: @user.id)%>
+</div>
+
+
+
+<ul>
+  <% @user.main_posts.each do |post| %>
+      <li>
+        <%= post.title %>
+        <%= post.description %>
+        <%= link_to 'Add subpost', new_post_path(user_id: @user.id, parent_id: post.id)%>
+      </li>
+      <ul>
+        <% post.childrens.each do |subpost| %>
+            <li>
+              <%= subpost.title %>
+              <%= subpost.description %>
+            </li>
+        <% end %>
+      </ul>
+  <% end %>
+</ul>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
