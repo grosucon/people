@@ -30,6 +30,8 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.welcome_email(@post).deliver
         format.html { redirect_to @post.user, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -58,7 +60,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to @post.user, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

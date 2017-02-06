@@ -37,12 +37,14 @@
         <%= post.title %>
         <%= post.description %>
         <%= link_to 'Add subpost', new_post_path(user_id: @user.id, parent_id: post.id)%>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </li>
       <ul>
         <% post.childrens.each do |subpost| %>
             <li>
               <%= subpost.title %>
               <%= subpost.description %>
+              <td><%= link_to 'Destroy', subpost, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </li>
         <% end %>
       </ul>
